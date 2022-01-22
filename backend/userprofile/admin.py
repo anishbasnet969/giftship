@@ -1,3 +1,5 @@
 from django.contrib import admin
+from userprofile.models import VendorProfile, CustomerProfile
 
-# Register your models here.
+admin.site.register(VendorProfile)
+admin.site.register(CustomerProfile)
