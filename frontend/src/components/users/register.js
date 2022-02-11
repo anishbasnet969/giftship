@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../axiosApi';
 import { useNavigate, NavLink } from 'react-router-dom';
 
 import Avatar from '@mui/material/Avatar';
@@ -28,7 +28,7 @@ export default function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (userType === 'vendor') {
-      axios
+      axiosInstance
         .post('users/create-vendor/', {
           email: email,
           password: password,
@@ -44,7 +44,7 @@ export default function SignUp() {
           navigate('/login');
         });
     } else {
-      axios
+      axiosInstance
         .post('users/create-customer/', {
           email: email,
           password: password,

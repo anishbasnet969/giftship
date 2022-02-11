@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate, NavLink } from 'react-router-dom';
+import axiosInstance from '../../axiosApi';
+import { NavLink } from 'react-router-dom';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -16,14 +16,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 export default function SignIn({ setAuthenticated }) {
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
+    axiosInstance
       .post('token/', {
         email: email,
         password: password,
@@ -32,10 +30,15 @@ export default function SignIn({ setAuthenticated }) {
         console.log(res.data);
         localStorage.setItem('access_token', res.data.access);
         localStorage.setItem('refresh_token', res.data.refresh);
-        axios.defaults.headers.common['Authorization'] =
+        localStorage.setItem('id', res.data.id);
+        res.data.is_vendor
+          ? localStorage.setItem('user_type', 'vendor')
+          : localStorage.setItem('user_type', 'customer');
+
+        axiosInstance.defaults.headers['Authorization'] =
           'Bearer ' + localStorage.getItem('access_token');
         setAuthenticated(true);
-        navigate('/');
+        window.location.href = '/';
       });
   };
 

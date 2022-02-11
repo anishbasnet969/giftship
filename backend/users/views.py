@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from users.serializers import ( 
@@ -71,6 +71,7 @@ class UserLoginView(RetrieveAPIView):
                 'status code' : status_code,
                 'message': 'User logged in  successfully',
                 'email': auth_data['email'],
+                'id':auth_data['id'],
                 'is_vendor': auth_data['is_vendor'],
                 'refresh' : auth_data['refresh'],
                 'access' : auth_data['access'],

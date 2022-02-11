@@ -85,6 +85,7 @@ class UserLoginSerializer(serializers.Serializer):
         
         return {
             'email': user.email,
+            'id': user.id,
             'is_vendor': user.is_vendor,
             'refresh': str(refresh),
             'access': str(refresh.access_token),
